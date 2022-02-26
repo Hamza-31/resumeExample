@@ -11,52 +11,51 @@
 
 <body>
     <div id="app">
-        <h1>Application CV</h1>
-        <h2>Données personnelles</h2>
-        <label>Nom : <input type="text" v-model="lastName"></label>
-        <label>Prenom : <input type="text" v-model="firstName"></label>
-        <label>Date de naissance : <input type="date" v-model="birthday"></label>
-        <label>Adresse : <input type="text" v-model="adress"></label>
-        <label>Voiture
-            <label>Oui <input v-model="car" v-bind:value="true" name="car" type="radio"></label>
-            <label>Non <input name="car" v-model="car" v-bind:value="false" type="radio"></label>
-        </label>
+        <div>
+            <h1>Application CV</h1>
+            <h2>Données personnelles</h2>
+            <label>Nom : <input type="text" v-model="lastName"></label>
+            <label>Prenom : <input type="text" v-model="firstName"></label>
+            <label>Date de naissance : <input type="date" v-model="birthday"></label>
+            <label>Adresse : <input type="text" v-model="adress"></label>
+            <label>Voiture
+                <label>Oui <input v-model="car" v-bind:value="true" name="car" type="radio"></label>
+                <label>Non <input name="car" v-model="car" v-bind:value="false" type="radio"></label>
+            </label>
 
-        <h2>Formations</h2>
-        <label>Ajouter une formation : <input id="study" type="text"></label>
-        <label>De : <input id="trainingStart" type="date"></label>
-        <label>à : <input id="trainingEnd" type="date"></label>
-        <button v-on:click="addTraining()">Ajouter</button>
+            <h2>Formations</h2>
+            <label>Ajouter une formation : <input id="study" type="text"></label>
+            <label>De : <input id="trainingStart" type="date"></label>
+            <label>à : <input id="trainingEnd" type="date"></label>
+            <button v-on:click="addTraining()">Ajouter</button>
 
-        <h2>Expériences professionnelles</h2>
-        <label>Ajouter une expérience professionnelle: <input id="experience" type="text"></label>
-        <label>De : <input id="experienceStart" type="date"></label>
-        <label>à : <input id="experienceEnd" type="date"></label>
-        <button v-on:click="addExperience()">Ajouter</button>
+            <h2>Expériences professionnelles</h2>
+            <label>Ajouter une expérience professionnelle: <input id="experience" type="text"></label>
+            <label>De : <input id="experienceStart" type="date"></label>
+            <label>à : <input id="experienceEnd" type="date"></label>
+            <button v-on:click="addExperience()">Ajouter</button>
 
-        <h2>Compétances</h2>
-        <label>Ajouter une compétance<input id="skill" type="text"></label>
-        <button v-on:click="addSkills()">Ajouter</button>
+            <h2>Compétances</h2>
+            <label>Ajouter une compétance<input id="skill" type="text"></label>
+            <button v-on:click="addSkills()">Ajouter</button>
 
-        <h2>Enregistrer le CV</h2>
-        <button @click="saveCV">Enregistrer</button>
-        <button @click="deleteCV">Supprimer</button>
+            <h2>Enregistrer le CV</h2>
+            <button @click="saveCV">Enregistrer</button>
+            <button @click="deleteCV">Supprimer</button>
+        </div>
         <hr>
-        <h1>Rendu du CV</h1>
+        <div>
+            <h1>Rendu du CV</h1>
 
-        <!-- {{studies}} -->
-        <!-- {{experiences}} -->
+            <personnal-data :firstname="firstName" :lastname="lastName" :birthday="birthday" :adress="adress" :car="car"
+                :age="age">
+            </personnal-data>
 
+            <training :studies="studies"></training>
 
-
-
-        <personnal-data :firstname="firstName" :lastname="lastName" :birthday="birthday" :adress="adress" :car="car">
-        </personnal-data>
-
-
-        <training :studies="studies"></training>
-        <experience :experiences="experiences"></experience>
-        <skill :skills="skills"></skill>
+            <experience :experiences="experiences"></experience>
+            <skill :skills="skills"></skill>
+        </div>
 
     </div>
 

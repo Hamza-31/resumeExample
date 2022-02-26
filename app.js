@@ -4,23 +4,19 @@ let personnalData = {
     <p>Nom Complet :  {{firstname}} {{lastname}}</p>
     <p>Adresse : {{adress}}</p>
     <p>Age : {{age}}</p>
-    <p v-if="car == true">Voiture : Véhiculé</p>
-    <p v-else style="color:red">Voiture : Non véhiculé</p>
-    
-    
-
+    <p >Voiture : <span v-if="car == true">Véhiculé</span><span v-else style="color:red">Non Véhiculé</span></p>
     </div>
     `,
 
     computed: {
         age: function () {
             let today = new Date();
-            let birthday = new Date(this.birthday)
+            let birthday = new Date(this.birthday);
             let diff = today.getTime() - birthday.getTime();
-            return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            return (this.birthday === '' ? '' : Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)));
         }
     },
-    props: ['firstname', 'lastname', 'birthday', 'adress', 'car']
+    props: ['firstname', 'lastname', 'birthday', 'adress', 'car', 'age']
 };
 
 let training = {
@@ -80,69 +76,69 @@ let vm = new Vue({
         experiences: [],
         skills: []
     },
+    created: function () {
+        this.loadStoredData();
+    },
     methods: {
         addTraining: function () {
-
-            let study = document.getElementById('study').value
-            let trainingStart = new Date(document.getElementById('trainingStart').value)
-            let trainingEnd = new Date(document.getElementById('trainingEnd').value)
-
-            trainingStart = trainingStart.toLocaleDateString('fr-FR', {
+            const options = {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
-            })
-            trainingEnd = trainingEnd.toLocaleDateString('fr-FR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            })
+            };
+            let study = document.getElementById('study').value;
+            let trainingStart = new Date(document.getElementById('trainingStart').value);
+            let trainingEnd = new Date(document.getElementById('trainingEnd').value);
+
+            trainingStart = trainingStart.toLocaleDateString('fr-FR', options)
+            trainingEnd = trainingEnd.toLocaleDateString('fr-FR', options);
             this.studies.push({
                 name: study,
                 start: trainingStart,
                 end: trainingEnd
-            })
-            document.getElementById('study').value = ''
-            document.getElementById('trainingStart').value = ''
-            document.getElementById('trainingEnd').value = ''
+            });
+            document.getElementById('study').value = '';
+            document.getElementById('trainingStart').value = '';
+            document.getElementById('trainingEnd').value = '';
         },
         addExperience: function () {
-
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
             let experience = document.getElementById('experience').value
-            let experienceStart = new Date(document.getElementById('experienceStart').value)
-            let experienceEnd = new Date(document.getElementById('experienceEnd').value)
+            let experienceStart = new Date(document.getElementById('experienceStart').value).toLocaleDateString('fr-FR', options);
+            let experienceEnd = new Date(document.getElementById('experienceEnd').value).toLocaleDateString('fr-FR', options);
 
-            experienceStart = experienceStart.toLocaleDateString('fr-FR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            })
-            experienceEnd = experienceEnd.toLocaleDateString('fr-FR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            })
             this.experiences.push({
                 name: experience,
                 start: experienceStart,
                 end: experienceEnd
-            })
-            document.getElementById('experience').value = ''
-            document.getElementById('experienceStart').value = ''
-            document.getElementById('experienceEnd').value = ''
+            });
+            document.getElementById('experience').value = '';
+            document.getElementById('experienceStart').value = '';
+            document.getElementById('experienceEnd').value = '';
 
         },
         addSkills: function () {
-            let skill = document.getElementById('skill').value
-            console.log(skill)
-            this.skills.push(skill)
-            document.getElementById('skill').value = ''
+            let skill = document.getElementById('skill').value;
+            console.log(skill);
+            this.skills.push(skill);
+            document.getElementById('skill').value = '';
         },
         saveCV: function () {
-            localStorage.setItem("cv", JSON.stringify(this.$data))
+            localStorage.setItem("cv", JSON.stringify(this.$data));
         },
         deleteCV: function () {
-            localStorage.removeItem('cv')
+            localStorage.removeItem('cv');
+        },
+        loadStoredData: function () {
+            let data = JSON.parse(localStorage.getItem('cv'));
+
+            for (let key in data) {
+                this[key] = data[key];
+            }
         }
 
     },
