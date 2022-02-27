@@ -102,11 +102,8 @@ let vm = new Vue({
                 day: 'numeric'
             };
             let study = document.getElementById('study').value;
-            let trainingStart = new Date(document.getElementById('trainingStart').value);
-            let trainingEnd = new Date(document.getElementById('trainingEnd').value);
-
-            trainingStart = trainingStart.toLocaleDateString('fr-FR', options)
-            trainingEnd = trainingEnd.toLocaleDateString('fr-FR', options);
+            let trainingStart = new Date(document.getElementById('trainingStart').value).toLocaleDateString('fr-FR', options);
+            let trainingEnd = new Date(document.getElementById('trainingEnd').value).toLocaleDateString('fr-FR', options);
             this.studies.push({
                 name: study,
                 start: trainingStart,
