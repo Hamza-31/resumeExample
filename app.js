@@ -1,22 +1,30 @@
 let personnalData = {
     template: `<div>
     <h3>Données personnelles</h3>
-    <p>Nom Complet :  {{firstname}} {{lastname}}</p>
-    <p>Adresse : {{adress}}</p>
+    <img :src=avatar>
+    <p>Nom Complet : {{fullName}}</p>
+    <p>Adresse : {{fullAdress}}</p>
     <p>Age : {{age}}</p>
     <p >Voiture : <span v-if="car == true">Véhiculé</span><span v-else style="color:red">Non Véhiculé</span></p>
     </div>
     `,
-
     computed: {
         age: function () {
             let today = new Date();
             let birthday = new Date(this.birthday);
             let diff = today.getTime() - birthday.getTime();
-            return (this.birthday === '' ? '' : Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)));
+            return (this.birthday === '' ? '' : `${Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25))} ans`);
+        },
+        fullAdress: function () {
+            console.log(this.adress.location)
+            return (this.adress.location === undefined || this.adress.zipcode === undefined ? '' : `${this.adress.location} ${this.adress.zipcode}`);
+        },
+        fullName: function () {
+            console.log(this.firstName)
+            return (this.firstName === undefined || this.lastName === undefined ? '' : `${this.firstName} ${this.lastName}`);
         }
     },
-    props: ['firstname', 'lastname', 'birthday', 'adress', 'car', 'age']
+    props: ['birthday', 'adress', 'car', 'avatar', 'last-name', 'first-name']
 };
 
 let training = {
@@ -70,7 +78,8 @@ let vm = new Vue({
         lastName: '',
         firstName: '',
         birthday: '',
-        adress: '',
+        avatar: '',
+        adress: [],
         car: false,
         studies: [],
         experiences: [],
@@ -80,6 +89,12 @@ let vm = new Vue({
         this.loadStoredData();
     },
     methods: {
+        addAdress: function () {
+            this.adress.push({
+                location: this.adress.location,
+                zipcode: this.adress.zipcode
+            });
+        },
         addTraining: function () {
             const options = {
                 year: 'numeric',
@@ -139,6 +154,10 @@ let vm = new Vue({
             for (let key in data) {
                 this[key] = data[key];
             }
+        },
+        uploadAvatar: function () {
+            this.avatar = document.getElementById('avatar').value
+
         }
 
     },

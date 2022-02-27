@@ -1,64 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>CV</title>
 </head>
 
 <body>
-    <div id="app">
-        <div>
-            <h1>Application CV</h1>
-            <h2>Données personnelles</h2>
-            <label>Nom : <input type="text" v-model="lastName"></label>
-            <label>Prenom : <input type="text" v-model="firstName"></label>
-            <label>Date de naissance : <input type="date" v-model="birthday"></label>
-            <label>Adresse : <input type="text" v-model="adress"></label>
-            <label>Voiture
-                <label>Oui <input v-model="car" v-bind:value="true" name="car" type="radio"></label>
-                <label>Non <input name="car" v-model="car" v-bind:value="false" type="radio"></label>
-            </label>
+    <main class="container-main">
+        <div id="app" class="row">
+            <section id="user-data" class="col">
+                <h1>Application CV</h1>
+                <div class="personnal-data p-3 my-4 px-5">
+                    <h2>Données personnelles</h2>
+                    <div class="fullname row">
+                        <label class="col">Nom <input type="text" v-model="lastName"></label>
+                        <label class="col">Prenom <input type="text" v-model="firstName"></label>
+                    </div>
+                    <div class="row">
+                        <label class="birthday col">Date de naissance <input type="date" v-model="birthday"></label>
+                        <label class="avatar col">Choisissez une photo de profil : <input type="file" id="avatar"
+                                name="avatar" accept="image/png, image/jpeg" v-on:change="uploadAvatar"></label>
+                    </div>
+                    <div class="row">
+                        <label class="col">Adresse <input type="text" v-model="adress.location"></label>
+                        <label class="col">Code postal <input type="text" v-model="adress.zipcode"></label>
+                    </div>
+                    <div class="car">Voiture :
+                        <label>Oui <input v-model="car" v-bind:value="true" name="car" type="radio"></label>
+                        <label>Non <input name="car" v-model="car" v-bind:value="false" type="radio"></label>
+                    </div>
+                </div>
+                <div class="training  p-3 my-4 px-5">
+                    <h2>Formations</h2>
+                    <label>Ajouter une formation <input id="study" type="text"></label>
+                    <div class="row">
+                        <label class="col">Date de début <input id="trainingStart" type="date"></label>
+                        <label class="col">Date de fin <input id="trainingEnd" type="date"></label>
+                    </div>
+                    <button v-on:click="addTraining()">Ajouter</button>
+                </div>
+                <div class="experience p-3 my-4 px-5">
+                    <h2>Expériences professionnelles</h2>
+                    <label>Ajouter une expérience professionnelle <input id="experience" type="text"></label>
+                    <div class="row">
+                        <label class="col">Date de début <input id="experienceStart" type="date"></label>
+                        <label class="col">Date de fin <input id="experienceEnd" type="date"></label>
+                    </div>
+                    <button v-on:click="addExperience()">Ajouter</button>
+                </div>
+                <div class="skills p-3 my-4 px-5">
+                    <h2>Compétances</h2>
+                    <label>Ajouter une compétance<input id="skill" type="text"></label>
+                    <button v-on:click="addSkills()">Ajouter</button>
+                </div>
+                <div class="save p-3 my-4 px-5">
+                    <h2>Enregistrer le CV</h2>
+                    <div class="saving">
+                        <button @click="saveCV" class="sav">Enregistrer</button>
+                        <button @click="deleteCV" class="del">Supprimer</button>
+                    </div>
+                </div>
+            </section>
 
-            <h2>Formations</h2>
-            <label>Ajouter une formation : <input id="study" type="text"></label>
-            <label>De : <input id="trainingStart" type="date"></label>
-            <label>à : <input id="trainingEnd" type="date"></label>
-            <button v-on:click="addTraining()">Ajouter</button>
+            <section id="canva" class="col">
+                <h1>Rendu du CV</h1>
 
-            <h2>Expériences professionnelles</h2>
-            <label>Ajouter une expérience professionnelle: <input id="experience" type="text"></label>
-            <label>De : <input id="experienceStart" type="date"></label>
-            <label>à : <input id="experienceEnd" type="date"></label>
-            <button v-on:click="addExperience()">Ajouter</button>
+                <personnal-data :first-name="firstName" :last-name="lastName" :birthday="birthday" :adress="adress"
+                    :car="car" :avatar="avatar">
+                </personnal-data>
 
-            <h2>Compétances</h2>
-            <label>Ajouter une compétance<input id="skill" type="text"></label>
-            <button v-on:click="addSkills()">Ajouter</button>
+                <training :studies="studies"></training>
 
-            <h2>Enregistrer le CV</h2>
-            <button @click="saveCV">Enregistrer</button>
-            <button @click="deleteCV">Supprimer</button>
+                <experience :experiences="experiences"></experience>
+                <skill :skills="skills"></skill>
+            </section>
+
         </div>
-        <hr>
-        <div>
-            <h1>Rendu du CV</h1>
-
-            <personnal-data :firstname="firstName" :lastname="lastName" :birthday="birthday" :adress="adress" :car="car"
-                :age="age">
-            </personnal-data>
-
-            <training :studies="studies"></training>
-
-            <experience :experiences="experiences"></experience>
-            <skill :skills="skills"></skill>
-        </div>
-
-    </div>
-
+    </main>
     <script src="app.js"></script>
 </body>
 

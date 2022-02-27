@@ -1,0 +1,155 @@
+body {
+    --blue: #323C53;
+    --blue-input: #A0AECD;
+    --blue-light: #EFF2F9;
+    --blue-btn: #1A91F0;
+    --blue-btn-hover: #1170CD;
+
+}
+
+h1 {
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container-main {
+    margin-top: 70px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+/******FONTS******/
+
+/******GLOBAL******/
+
+
+/******CONTENT******/
+#user-data {
+    color: var(--blue);
+    padding-bottom: 100px;
+    padding: 50px;
+}
+
+#user-data h2 {
+    text-align: center;
+}
+
+.personnal-data,
+.training,
+.experience,
+.skills,
+.save {
+    background-color: var(--blue-light);
+    border-radius: 15px;
+}
+
+/* .personnal-data:hover,
+.training:hover,
+.experience:hover,
+.skills:hover {
+    
+} */
+
+input {
+    width: 100%;
+    display: block;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 2px;
+    border: 0;
+    background-color: var(--blue-input);
+
+}
+
+
+input:focus {
+    border-bottom: 3px solid var(--blue);
+    outline: none;
+}
+
+.car input {
+    width: 15px;
+    margin-right: 15px;
+    display: inline;
+    accent-color: var(--blue);
+}
+
+.avatar {
+    background-color: rgba(128, 128, 128, 0);
+}
+
+input[type=file]::file-selector-button {
+    background-color: var(--blue);
+    border: none;
+    color: white;
+    border-radius: 2px;
+    padding: 3px;
+}
+
+.training label:first-of-type,
+.experience label:first-of-type {
+    display: block;
+}
+
+.training label:first-of-type input,
+.experience label:first-of-type input,
+.birthday,
+.skills label {
+    width: 100%;
+}
+
+
+.training button,
+.experience button,
+.skills button {
+    display: block;
+}
+
+.saving {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+button {
+    background-color: var(--blue);
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    color: white;
+    margin: 0 auto;
+}
+
+button:hover {
+    opacity: 0.8;
+    transition-duration: .3s;
+}
+
+.sav:hover {
+    background-color: #005743;
+}
+
+.del:hover {
+    background-color: #DC143C;
+}
+
+/*****CANVA*****/
+
+
+#canva {
+    height: 100vh;
+    background-color: var(--blue);
+    color: white;
+    padding: 50px;
+}
